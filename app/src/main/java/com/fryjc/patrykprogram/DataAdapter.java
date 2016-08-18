@@ -3,6 +3,7 @@ package com.fryjc.patrykprogram;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Layout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,9 +11,13 @@ import android.widget.TextView;
 
 import java.util.ArrayList;
 
+import rx.Observable;
+import rx.subjects.PublishSubject;
+
 public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
     private ArrayList<User> user;
-    private int visibleThreshold = 1;
+    private final PublishSubject<Integer> onClickSubject = PublishSubject.create();
+    private int visibleThreshold = 8;
     private int lastVisibleItem, totalItemCount;
     private boolean loading;
     private OnLoadMoreListener onLoadMoreListener;
@@ -49,9 +54,18 @@ public class DataAdapter extends RecyclerView.Adapter<DataAdapter.ViewHolder> {
 
     @Override
     public void onBindViewHolder(DataAdapter.ViewHolder viewHolder, int i) {
-
+        final int element = user.get(i).getId();
         viewHolder.tv_name.setText(user.get(i).getLogin());
+        viewHolder.itemView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                onClickSubject.onNext(element);
+            }
+        });
 
+    }
+    public Observable<Integer> getPositionClicks(){
+        return onClickSubject.asObservable();
     }
 
     @Override
