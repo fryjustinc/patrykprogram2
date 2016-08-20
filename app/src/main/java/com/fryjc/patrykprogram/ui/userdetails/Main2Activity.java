@@ -10,6 +10,7 @@ import com.google.gson.Gson;
 
 public class Main2Activity extends AppCompatActivity {
     public final static String EXTRA_MESSAGE = "com.fryjc.patrykprogram.MESSAGE";
+    private static final String CURRENT_USER = "current user";
     private String value;
     private User user;
     @Override
@@ -36,5 +37,17 @@ public class Main2Activity extends AppCompatActivity {
         userRepoNum.setText("Number of Public Repos: " + user.getPublic_repos());
         userRepoURL.setText("user repo URL: " +user.getRepos_url());
 
+    }
+    @Override
+    protected void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putString(CURRENT_USER, new Gson().toJson(user));
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        String currentSearch = savedInstanceState.getString(CURRENT_USER);
+        user=new Gson().fromJson(currentSearch,User.class);
     }
 }

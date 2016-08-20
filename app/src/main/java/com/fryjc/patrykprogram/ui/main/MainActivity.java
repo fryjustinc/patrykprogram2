@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
     private Observable<String> textChange;
     private SearchBar editText;
     private User noResults = new User("No Results");
+    static final String CURRENT_SEARCH= "string_value";
     ArrayList<User> newdata;
 
     @Override
@@ -54,6 +55,20 @@ public class MainActivity extends AppCompatActivity {
         initViews();
 
     }
+
+    @Override
+    protected void onSaveInstanceState(Bundle savedInstanceState) {
+        savedInstanceState.putString(CURRENT_SEARCH, new Gson().toJson(editText.getText()));
+        super.onSaveInstanceState(savedInstanceState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+        super.onRestoreInstanceState(savedInstanceState);
+        String currentSearch = savedInstanceState.getString(CURRENT_SEARCH);
+        editText.setText(new Gson().fromJson(currentSearch,String.class));
+    }
+
     private void initViews() {
         data = new ArrayList<User>();
         data.add(noResults);
