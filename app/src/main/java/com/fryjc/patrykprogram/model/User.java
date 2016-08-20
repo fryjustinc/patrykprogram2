@@ -274,5 +274,7 @@ public class User {
     private String updated_at;
 
 
-
+    public User(String login) {
+        this.login = login;
+    }
 }

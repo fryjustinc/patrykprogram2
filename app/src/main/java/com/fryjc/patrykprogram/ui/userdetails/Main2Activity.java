@@ -1,7 +1,6 @@
 package com.fryjc.patrykprogram.ui.userdetails;
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
 
@@ -9,16 +8,12 @@ import com.fryjc.patrykprogram.R;
 import com.fryjc.patrykprogram.model.User;
 import com.google.gson.Gson;
 
-/**
- * Created by fryjc on 8/14/2016.
- */
-public class UserActivity extends AppCompatActivity {
+public class Main2Activity extends AppCompatActivity {
     public final static String EXTRA_MESSAGE = "com.fryjc.patrykprogram.MESSAGE";
     private String value;
     private User user;
-
     @Override
-    protected void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.user_activity);
         Bundle extras = getIntent().getExtras();
@@ -29,7 +24,6 @@ public class UserActivity extends AppCompatActivity {
         user = gson.fromJson(value, User.class);
         initViews();
     }
-
     private void initViews() {
         TextView userName = (TextView) findViewById(R.id.textView);
         TextView userURL = (TextView) findViewById(R.id.textView2);

@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">RecyclerJsonParsing</string>
+    <string name="enter_text">enter_text</string>
 </resources>
